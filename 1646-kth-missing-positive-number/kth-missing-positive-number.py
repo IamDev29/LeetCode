@@ -6,10 +6,18 @@ class Solution(object):
         :rtype: int
         """
         
-        for i in range(len(arr)):
-            if arr[i]<=k:
-                k+=1
-            else:
-                break
+        low=0
+        high=len(arr)-1
 
-        return k
+        while low<=high:
+            mid=(low+high)//2
+            missing=arr[mid]-(mid+1)
+
+            if missing<k:
+                low=mid+1
+            else:
+                high=mid-1
+        
+        ans=arr[high]+k-(arr[high]-high-1)
+
+        return ans
