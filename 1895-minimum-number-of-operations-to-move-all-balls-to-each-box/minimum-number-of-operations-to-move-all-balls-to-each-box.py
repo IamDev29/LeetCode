@@ -4,21 +4,31 @@ class Solution(object):
         :type boxes: str
         :rtype: List[int]
         """
-        n=len(boxes)
+        n = len(boxes)
+        ans = [0] * n
 
-        arr=[]
-        
-        for i in range(n):
-            if boxes[i]=='1':
-                arr.append(i)
+        # Left to right: contribution from balls on the left
+        balls = 0
+        moves = 0
 
-        ans=[]
         for i in range(n):
-            step=0
-            for num in arr:
-                step+=abs(i-num)
-            ans.append(step)
+            ans[i] += moves
+
+            if boxes[i] == '1':
+                balls += 1
+
+            moves += balls
+
+        # Right to left: contribution from balls on the right
+        balls = 0
+        moves = 0
+
+        for i in range(n - 1, -1, -1):
+            ans[i] += moves
+
+            if boxes[i] == '1':
+                balls += 1
+
+            moves += balls
 
         return ans
-            
-
